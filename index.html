@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Tracking System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Budget Tracking System home">
+        <span class="brand-mark">S</span>
+        <span>Budget Tracking System</span>
+      </a>
+      <div class="header-actions">
+        <p id="user-label" class="header-date">Personal budget tracker</p>
+        <button id="logout-button" class="logout-button hidden" type="button">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <section id="login-screen" class="login-screen" aria-labelledby="login-title">
+    <div class="login-card">
+      <p class="eyebrow">Private local access</p>
+      <h1 id="login-title">Welcome back.</h1>
+      <p>Sign in to view and manage your personal expenses.</p>
+      <p class="form-hint">Default LAN accounts: user1 / ChangeMe1!, user2 / ChangeMe2!, user3 / ChangeMe3!</p>
+      <form id="login-form" class="login-form">
+        <div class="form-field">
+          <label for="login-username">Username</label>
+          <input id="login-username" name="username" type="text" autocomplete="username" required>
+        </div>
+        <div class="form-field">
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="primary-button" type="submit">Log in <span aria-hidden="true">&#8594;</span></button>
+        <p id="login-message" class="form-message" role="alert" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <div id="app-shell" class="hidden">
+  <main id="top" class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">Your money, made visible</p>
+      <h1 id="page-title">A calmer view of your spending.</h1>
+      <p class="intro-copy">Keep everyday expenses in one simple place and build a clearer picture of your habits.</p>
+    </section>
+
+    <section class="dashboard-section" aria-labelledby="dashboard-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Overview</p>
+          <h2 id="dashboard-title">This month</h2>
+        </div>
+        <span id="status-badge" class="status-badge">No expenses yet</span>
+      </div>
+      <div class="metric-grid">
+        <article class="metric-card metric-card-featured">
+          <p class="metric-label">Current month's spending</p>
+          <p id="monthly-total" class="metric-value">$0.00</p>
+          <p class="metric-note">Your total for this month</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Today's spending</p>
+          <p id="today-total" class="metric-value">$0.00</p>
+          <p class="metric-note">Across all expenses</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Average per day</p>
+          <p id="average-total" class="metric-value">$0.00</p>
+          <p class="metric-note">Based on this month</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Expenses</p>
+          <p id="monthly-count" class="metric-value">0</p>
+          <p class="metric-note">Transactions this month</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="workspace-grid" aria-label="Expense workspace">
+      <article class="panel expense-form-panel" aria-labelledby="add-expense-title">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">Quick entry</p>
+            <h2 id="add-expense-title">Add an expense</h2>
+          </div>
+          <span class="step-number">01</span>
+        </div>
+        <form id="expense-form" class="expense-form">
+          <div class="form-field">
+            <label for="expense-date">Date</label>
+            <input id="expense-date" name="date" type="date" required>
+          </div>
+          <div class="form-field">
+            <label for="expense-place">Place or store</label>
+            <input id="expense-place" name="place" type="text" placeholder="e.g. Green Market" required>
+          </div>
+          <div class="form-field">
+            <label for="expense-category">Category</label>
+            <select id="expense-category" name="category" required>
+              <option value="">Choose a category</option>
+              <option>Groceries</option>
+              <option>Transport</option>
+              <option>Dining</option>
+              <option>Shopping</option>
+              <option>Bills</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="expense-amount">Amount</label>
+            <div class="amount-input">
+              <span>$</span>
+              <input id="expense-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+            </div>
+          </div>
+          <div class="form-field form-field-wide">
+            <label for="expense-description">Description <span>(optional)</span></label>
+            <textarea id="expense-description" name="description" rows="3" placeholder="Add a note about this expense"></textarea>
+          </div>
+          <button class="primary-button" type="submit">Add expense <span aria-hidden="true">+</span></button>
+          <p class="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="panel calendar-panel" aria-labelledby="calendar-title">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">Monthly view</p>
+            <h2 id="calendar-title">September 2026</h2>
+          </div>
+          <div class="calendar-controls">
+            <button id="previous-month" class="icon-button" type="button" aria-label="Previous month">&#8592;</button>
+            <button id="next-month" class="icon-button" type="button" aria-label="Next month">&#8594;</button>
+          </div>
+        </div>
+        <div id="calendar" class="calendar" aria-label="September 2026 calendar">
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="calendar-days" class="calendar-days"></div>
+        </div>
+        <div class="day-summary">
+          <div>
+            <p class="metric-label">Selected day</p>
+            <p id="selected-date" class="summary-date">September 10, 2026</p>
+          </div>
+          <strong id="selected-day-total">$0.00</strong>
+        </div>
+        <div id="selected-day-expenses" class="selected-day-expenses"></div>
+      </article>
+    </section>
+
+    <section class="panel history-panel" aria-labelledby="history-title">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="eyebrow">Your records</p>
+          <h2 id="history-title">Expense history</h2>
+        </div>
+        <span id="result-count" class="result-count">0 expenses</span>
+      </div>
+      <div class="history-filter-controls">
+        <div class="form-field history-filter-field">
+          <label for="history-start">From</label>
+          <input id="history-start" type="date">
+        </div>
+        <div class="form-field history-filter-field">
+          <label for="history-end">To</label>
+          <input id="history-end" type="date">
+        </div>
+        <button id="history-filter-button" class="secondary-button history-filter-button" type="button">Apply Range</button>
+      </div>
+      <div id="history-content" class="empty-state">
+        <span class="empty-icon" aria-hidden="true">+</span>
+        <h3>Your expense history is empty</h3>
+        <p>Add your first expense above and it will appear here.</p>
+      </div>
+    </section>
+
+    <section class="panel analysis-panel" aria-labelledby="analysis-title">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="eyebrow">Understand your habits</p>
+          <h2 id="analysis-title">Date-range analysis</h2>
+        </div>
+        <span class="step-number">03</span>
+      </div>
+      <div class="analysis-controls">
+        <div class="form-field">
+          <label for="analysis-start">From</label>
+          <input id="analysis-start" type="date">
+        </div>
+        <div class="form-field">
+          <label for="analysis-end">To</label>
+          <input id="analysis-end" type="date">
+        </div>
+        <button id="analyze-button" class="secondary-button" type="button">Analyze period</button>
+      </div>
+      <div id="analysis-content" class="analysis-empty">
+        <p>Select a date range to see your spending breakdown.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Budget Tracking System keeps your data in this browser.</p>
+  </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
